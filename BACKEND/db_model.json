@@ -1,0 +1,171 @@
+{
+    "machineInfo": {
+        "machineType": {
+            "type": "Schema.ObjectId",
+            "ref": "MachineType", 
+            "required": true
+        },
+        "serial": {
+            "type": "String",
+            "required": true,
+            "minLength": 1,
+            "maxLength": 100
+        }, 
+        "status": {
+            "type": "Schema.ObjectId",
+            "ref": "Status",
+            "required": true
+        },
+        "schedule": {
+            "type": ["Schema.ObjectId"],
+            "ref": "Schedule"
+        }
+    },
+    "machineType": {
+        "name": {
+            "type": "String",
+            "required": true,
+            "minLength": 1,
+            "maxLength": 100
+        },
+        "description": {
+            "type": "String",
+            "required": true,
+            "minLength": 1,
+            "maxLength": 100
+        } 
+    },
+    "schedule": {
+        "name": {
+            "type": "String",
+            "required": true,
+            "enum": [
+                "maintenance",
+                "utilized",
+                "available"
+            ]
+        },
+        "user": {
+            "type": "Schema.ObjectId",
+            "ref": "User"
+        }
+        ,
+        "startTime": {
+            "type": "Date",
+            "required": true
+        },
+        "endTime": {
+            "type": "Date",
+            "required": true
+        }
+    },
+    "status": {
+        "name": {
+            "type": "String",
+            "required": true,
+            "enum": [
+                "active",
+                "inactive"
+            ]
+        }
+    },
+    "user": {
+        "name": {
+            "type": "String",
+            "required": true
+        },
+        "email": {
+            "type": "String",
+            "required": true
+        },
+        "password": {
+            "type": "String",
+            "required": true
+        },
+        "role": {
+            "type": "String",
+            "enum": [
+                "admin",
+                "client"
+            ],
+            "default": "client"
+        },
+        "membership": {
+            "type": "Schema.ObjectId",
+            "ref": "Membership"
+        }
+    },
+    "membership": {
+        "state": {
+            "type": "String",
+            "enum": [
+                "paid",
+                "unpaid"
+            ],
+            "required": true
+        },
+        "remainingHours": {
+            "type": "Number",
+            "required": true
+        }
+    },
+    "supplie":{
+        "name": {
+            "type": "String",
+            "required": true,
+            "minLength": 1,
+            "maxLength": 100
+        },
+        "quantity": {
+            "type": "Number",
+            "required": true
+        },
+        "description": {
+            "type": "String",
+            "required": true,
+            "minLength": 1,
+            "maxLength": 100
+        }
+    },
+    "ledger":{
+        "balance": {
+            "type": "Number",
+            "required": true
+        },
+        "totalDebt":{
+            "type": "Number",
+            "required": true
+        },
+        "debts":{
+            "type": "Schema.ObjectId",
+            "ref": "Debt"
+        }
+    },
+    "paymentRecord":{
+        "detail":{
+            "type":"String",
+            "required":true,
+            "minLength": 1,
+            "maxLength": 100
+        },
+        "amount":{
+            "type":"Number",
+            "required": true
+        },
+        "date":{
+            "type":"Date",
+            "required": true
+        }
+    },
+    
+    "Debt":{
+        "debtQuantity":{
+            "type": "Number",
+            "required":true
+        },
+        "user":{
+            "type": "Schema.ObjectId",
+            "ref": "User"
+        }
+    }
+}
